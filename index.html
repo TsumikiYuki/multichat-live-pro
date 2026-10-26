@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MultiChat Live Pro</title>
+  <meta name="theme-color" content="#070913">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff4ecd'/%3E%3Cstop offset='1' stop-color='%239d4edd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M24 19a2 2 0 0 1-2 2H12l-4 4V10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z' fill='white'/%3E%3C/svg%3E">
+  
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="cyberpunk">
+
+  <!-- =========================================================================
+       App Header
+       ========================================================================= -->
+  <header>
+    <div class="logo-area" onclick="location.reload()">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M16 10h.01"></path>
+        </svg>
+      </div>
+      <div class="logo-text">
+        MULTICHAT
+        <span>Live Pro 2.1</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="header-nav">
+      <button class="nav-tab active" onclick="app.closeAllModals()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        Chats
+      </button>
+
+      <button class="nav-tab" onclick="app.openChannelsMemoryModal()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        Canais
+      </button>
+
+      <button class="nav-tab" onclick="app.openPresetModal()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Presets
+      </button>
+
+      <button class="nav-tab" onclick="app.openScratchpadModal()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        Notas
+      </button>
+
+      <button class="nav-tab" onclick="app.openSettingsModal()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        Configurações
+      </button>
+
+      <button class="nav-tab" onclick="app.openAboutModal()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        Sobre & OBS
+      </button>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- Live Timer Toggle -->
+      <button class="btn btn-icon-only" title="Exibir Cronômetro de Live" onclick="app.toggleTimerWidget()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </button>
+
+      <!-- Theme Switcher -->
+      <button class="btn btn-icon-only" title="Mudar Tema" onclick="app.cycleTheme()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+
+      <!-- Custom Wallpaper Button -->
+      <button class="btn btn-icon-only" title="Personalizar Wallpaper de Fundo" onclick="app.openWallpaperModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+      </button>
+
+      <!-- OBS Transparent Mode -->
+      <button class="btn" title="Ativar Modo OBS Studio (Transparente - F2)" onclick="app.toggleOBSMode()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 7l-7 5 7 5V7z"></path>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+        </svg>
+        OBS
+      </button>
+
+      <!-- Fullscreen -->
+      <button class="btn btn-icon-only" title="Tela Cheia" onclick="app.toggleFullscreen()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+      </button>
+
+      <!-- Add Chat Primary -->
+      <button class="btn btn-primary" onclick="app.openAddModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Chat
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       Action Bar (Quick Input & Layout Tools)
+       ========================================================================= -->
+  <div class="action-bar">
+    <div class="quick-add-group">
+      <select id="quick-type" class="platform-select">
+        <option value="auto">⚡ Auto-Detectar</option>
+        <option value="tw">Twitch</option>
+        <option value="yt">YouTube</option>
+        <option value="kick">Kick</option>
+        <option value="tiktok">TikTok</option>
+        <option value="trovo">Trovo</option>
+        <option value="owncast">Owncast</option>
+        <option value="custom">Outro site (URL)</option>
+      </select>
+
+      <div class="quick-input-wrap">
+        <svg class="quick-input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+        <input
+          id="quick-input"
+          class="input-field"
+          autocomplete="off"
+          placeholder="Cole um link de live (YouTube, Twitch, Kick...) ou digite o canal"
+        >
+        <span class="detect-pill" id="quick-detect"></span>
+        <kbd class="quick-kbd">Ctrl K</kbd>
+      </div>
+
+      <button id="quick-add-btn" class="btn btn-primary">
+        Adicionar
+      </button>
+    </div>
+
+    <!-- View & Layout Switcher -->
+    <div class="view-toolbar">
+      <div class="layout-selector" title="Atalho: Alt + 1 a 6">
+        <button class="layout-btn active" data-layout="auto" title="Grade Automática" onclick="app.applyLayout('auto')">Auto</button>
+        <button class="layout-btn" data-layout="1" title="1 Coluna" onclick="app.applyLayout('1')">1 Col</button>
+        <button class="layout-btn" data-layout="2" title="2 Colunas" onclick="app.applyLayout('2')">2 Col</button>
+        <button class="layout-btn" data-layout="3" title="3 Colunas" onclick="app.applyLayout('3')">3 Col</button>
+        <button class="layout-btn" data-layout="4" title="4 Colunas" onclick="app.applyLayout('4')">4 Col</button>
+        <button class="layout-btn" data-layout="focus" title="Modo Destaque" onclick="app.applyLayout('focus')">Foco</button>
+      </div>
+
+      <button class="btn" title="Salvar chats atuais como preset" onclick="app.saveCurrentAsPreset()">
+        Salvar Preset
+      </button>
+
+      <button class="btn btn-danger" title="Limpar todos os chats" onclick="app.clearAllChats()">
+        Limpar
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       Persistent Channels Memory Bar (Canais Salvos / Favoritos)
+       ========================================================================= -->
+  <div class="channels-bar" id="channels-bar">
+    <div class="channels-label">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+      Canais Salvos:
+    </div>
+
+    <div class="channels-scroll" id="channels-chips-container">
+      <!-- Dynamic Chips Injected by JS -->
+    </div>
+
+    <button class="btn-add-memory" onclick="app.openChannelsMemoryModal()" title="Gerenciar todos os canais salvos">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Gerenciar Memória
+    </button>
+  </div>
+
+  <!-- =========================================================================
+       Main Content Area (Grid)
+       ========================================================================= -->
+  <main class="main-content">
+    <div class="grid layout-auto" id="grid">
+      <!-- Dynamic Chat Cards Injected by app.js -->
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       Floating Live Timer Widget
+       ========================================================================= -->
+  <div class="floating-widget hidden" id="floating-timer">
+    <div class="timer-readout">
+      <span class="timer-label"><span class="timer-dot"></span>Tempo de live</span>
+      <span class="timer-digits" id="floating-timer-digits">00:00:00</span>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:6px;">
+      <button class="btn btn-primary btn-xs" id="timer-play-btn" title="Iniciar / pausar" onclick="app.toggleTimer()">▶</button>
+      <button class="btn btn-xs" onclick="app.resetTimer()">Zerar</button>
+      <button class="control-btn" title="Esconder (o cronômetro continua contando)" onclick="app.toggleTimerWidget()">✕</button>
+    </div>
+  </div>
+
+  <!-- Sair do modo OBS (aparece ao passar o mouse no canto superior direito) -->
+  <button class="obs-exit" onclick="app.toggleOBSMode()" title="Sair do modo OBS (F2)">Sair do modo OBS · F2</button>
+
+  <!-- =========================================================================
+       Toast Container
+       ========================================================================= -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- =========================================================================
+       Footer
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="footer-left">
+      <span><strong>MultiChat Live Pro</strong> 2.1</span>
+      <span class="stat-pill" id="chat-count">0 chat(s)</span>
+      <span class="stat-pill">
+        <span class="live-dot"></span> Salvo automaticamente
+      </span>
+    </div>
+
+    <div class="footer-right">
+      <span class="footer-keys"><kbd>Ctrl K</kbd> adicionar <kbd>Alt 1–6</kbd> layouts <kbd>F2</kbd> modo OBS</span>
+      <span class="footer-sep">•</span>
+      <span>Arraste o topo de um chat para reorganizar</span>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODAL: Adicionar Novo Chat
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-add-chat">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Adicionar Novo Chat
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Plataforma:</label>
+          <select id="modal-add-type" class="platform-select" style="width: 100%;">
+            <option value="auto">⚡ Auto-Detectar (Qualquer Link)</option>
+            <option value="tw">Twitch TV</option>
+            <option value="yt">YouTube Live</option>
+            <option value="kick">Kick.com</option>
+            <option value="tiktok">TikTok Live</option>
+            <option value="trovo">Trovo Live</option>
+            <option value="owncast">Owncast (servidor próprio)</option>
+            <option value="custom">Outro site / URL de chat (Streamlabs, Botrix...)</option>
+          </select>
+        </div>
+
+        <!-- YouTube Friendly Hint -->
+        <div class="yt-helper-box" id="yt-helper-tip">
+          <div class="yt-helper-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            Dica Super Fácil para YouTube:
+          </div>
+          <div>Abra a live no YouTube e <strong>copie o link do navegador ou do botão Compartilhar</strong>. O MultiChat reconhece e conecta automaticamente sem você precisar caçar ID nenhum! Se digitar o nome do canal (ex: @cazetv), abrimos um assistente com 1 clique para você.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" id="modal-add-label">Link da Live ou Canal:</label>
+          <input id="modal-add-input" class="input-field" placeholder="Cole o link do YouTube, twitch.tv/canal ou nome...">
+          <span class="form-hint">O canal será salvo automaticamente na sua memória de canais para acessos futuros com 1 clique.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Apelido Customizado (Opcional):</label>
+          <input id="modal-add-name" class="input-field" placeholder="Ex: Chat Principal, Raid, Canal 2...">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" onclick="app.closeAllModals()">Cancelar</button>
+        <button class="btn btn-primary" id="modal-add-submit">Adicionar Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Assistente de Live do YouTube (1-Click Helper)
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-yt-helper">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff0033"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          Assistente de Live do YouTube
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Você informou o canal <strong id="yt-helper-handle" style="color:var(--text-main);">@canal</strong>. Como no YouTube cada live tem seu próprio endereço, siga 2 passos rápidos:
+        </p>
+
+        <div style="background: rgba(255,255,255,0.04); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-weight:600; font-size:13px; color:var(--text-main);">1. Abrir transmissão ao vivo no YouTube:</div>
+          <button class="btn btn-primary" id="yt-helper-open-btn" style="width:100%;" onclick="app.openYouTubeChannelLive()">
+            📺 Abrir Live de Hoje no YouTube (Nova Janela)
+          </button>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.04); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-weight:600; font-size:13px; color:var(--text-main);">2. Cole o link da live aberta acima:</div>
+          <input id="yt-helper-paste-input" class="input-field" placeholder="Cole aqui o link (ex: https://www.youtube.com/watch?v=...)">
+          <span class="form-hint">Pode colar direto o link da barra do navegador ou do botão Compartilhar. O canal será lembrado para sempre!</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" onclick="app.closeAllModals()">Cancelar</button>
+        <button class="btn btn-primary" onclick="app.submitYouTubeHelper()">Conectar Chat & Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Memória & Favoritos de Canais
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-channels-memory">
+    <div class="modal" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#eab308" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          Memória Persistente de Canais
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Todos os canais que você adiciona ficam salvos aqui permanentemente. Clique em <strong>Conectar</strong> para abrir na tela ou na <strong>estrela (★)</strong> para favoritar:
+        </p>
+
+        <!-- Channel Memory List -->
+        <div class="preset-list" id="memory-channels-list">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+
+        <hr style="border:0; border-top: 1px solid var(--border-subtle); margin: 6px 0;">
+
+        <!-- Quick Add Channel to Memory Form -->
+        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size: 12px; font-weight: 700; color: var(--text-main); text-transform:uppercase;">+ Salvar Novo Canal na Memória</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <select id="mem-new-platform" class="platform-select" style="flex:1; min-width: 120px;">
+              <option value="tw">Twitch</option>
+              <option value="yt">YouTube</option>
+              <option value="kick">Kick</option>
+              <option value="trovo">Trovo</option>
+            </select>
+            <input id="mem-new-name" class="input-field" placeholder="Nome / Apelido (ex: Gaules)" style="flex:1; min-width: 140px;">
+          </div>
+          <input id="mem-new-input" class="input-field" placeholder="Canal (ex: gaules) ou Link da Live do YouTube">
+          <button class="btn btn-primary" onclick="app.saveNewChannelFromModal()" style="align-self: flex-end;">
+            Salvar Canal nos Favoritos
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="app.closeAllModals()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Configurações
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-settings">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Configurações
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tema Visual:</label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <button class="btn theme-option" data-theme="cyberpunk" onclick="app.applyTheme('cyberpunk')">Cyber Neon</button>
+            <button class="btn theme-option" data-theme="slate" onclick="app.applyTheme('slate')">Slate Escuro</button>
+            <button class="btn theme-option" data-theme="midnight" onclick="app.applyTheme('midnight')">Midnight</button>
+            <button class="btn theme-option" data-theme="sunset" onclick="app.applyTheme('sunset')">Sunset</button>
+            <button class="btn theme-option" data-theme="matrix" onclick="app.applyTheme('matrix')">Matrix</button>
+            <button class="btn theme-option" data-theme="light" onclick="app.applyTheme('light')">Clean Light</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Domínio Twitch Embed (Parent):</label>
+          <input id="setting-twitch-parent" class="input-field" placeholder="Ex: localhost ou seudominio.com">
+          <span class="form-hint">A Twitch exige o parâmetro 'parent' correspondente ao seu domínio. Se rodar em servidor local, use 'localhost'.</span>
+        </div>
+
+        <hr style="border:0; border-top: 1px solid var(--border-subtle); margin: 6px 0;">
+
+        <div class="form-group">
+          <label class="form-label">Backup & Sincronização:</label>
+          <div style="display:flex; gap:10px;">
+            <button class="btn" style="flex:1;" onclick="app.exportConfig()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Exportar Backup
+            </button>
+            <label class="btn" style="flex:1; cursor:pointer; text-align:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              Importar Backup
+              <input type="file" id="import-file-input" accept=".json" style="display:none;">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" onclick="app.closeAllModals()">Fechar</button>
+        <button class="btn btn-primary" onclick="app.saveSettingsFromModal()">Salvar Alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Presets / Perfis
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-presets">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Presets de Canais Salvos
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Alterne rapidamente entre diferentes grupos de chats salvos (ex: Campeonatos, Amigos, Lives de Jogos):
+        </p>
+
+        <div class="preset-list" id="preset-list">
+          <!-- Preset items rendered by JS -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="app.saveCurrentAsPreset()">+ Salvar Config Atual</button>
+        <button class="btn" onclick="app.closeAllModals()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Bloco de Notas / Scratchpad
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-scratchpad">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+          Bloco de Notas do Streamer
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 12px; color: var(--text-muted);">
+          Suas anotações são salvas automaticamente em tempo real no seu navegador:
+        </p>
+        <textarea id="scratchpad-text" class="scratchpad-area" placeholder="Digite aqui recados, links rápidos para a live, comandos de bot, notas do dia..."></textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="app.closeAllModals()">Concluído</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Como Desbloquear Chats no Firefox / Chrome (Servidor Local)
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-server-guide">
+    <div class="modal" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Por que o Firefox bloqueia e como resolver?
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body" style="font-size: 13px; line-height: 1.6; color: var(--text-muted);">
+        <p>
+          O <strong>YouTube</strong> e o <strong>Firefox</strong> possuem uma política de segurança estrita (<kbd>X-Frame-Options</kbd>): quando uma página é aberta diretamente como arquivo (endereço <code>file:///...</code>), o YouTube bloqueia a exibição dentro de iframes para evitar ataques de clique.
+        </p>
+
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.35); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-weight: 700; color: #4ade80; font-size: 14px;">
+            ✅ Solução 1 (Recomendada): Usar o Iniciar.bat (1 Clique)
+          </div>
+          <p style="color: var(--text-main);">
+            Criamos um inicializador automático para você!
+          </p>
+          <ol style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: var(--text-main);">
+            <li>Abra a pasta onde está o <strong>MultiChat</strong>.</li>
+            <li>Dê dois cliques no arquivo <strong>Iniciar.bat</strong>.</li>
+            <li>Ele abrirá o MultiChat em <code>http://localhost:3000</code> no seu navegador com <strong>100% dos chats do YouTube e Twitch liberados diretamente na tela</strong>!</li>
+          </ol>
+        </div>
+
+        <div style="background: rgba(255, 78, 205, 0.1); border: 1px solid rgba(255, 78, 205, 0.35); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
+          <div style="font-weight: 700; color: var(--accent-pink); font-size: 14px;">
+            🗗 Solução 2: Abrir em Janela Popout (Sem Servidor)
+          </div>
+          <p style="color: var(--text-main);">
+            Se preferir não usar o <code>Iniciar.bat</code>, basta clicar no botão <strong>Popout (↗)</strong> no topo do chat do YouTube. O chat abrirá em uma janela popup limpa e compacta, sem nenhum bloqueio do navegador!
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="app.closeAllModals()">Entendido!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Sobre & Dicas OBS
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-about">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          Sobre o MultiChat Live Pro
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body" style="font-size: 13px; line-height: 1.7; color: var(--text-muted);">
+        <p><strong style="color:var(--text-main);">MultiChat Live Pro 2.1</strong> é uma central tudo-em-um para acompanhar múltiplos chats de streaming simultâneos em tempo real (Twitch, YouTube, Kick, Trovo e links personalizados).</p>
+        
+        <h4 style="color:var(--text-main); margin-top: 10px;">🚀 Dicas e Recursos:</h4>
+        <ul style="padding-left: 18px; margin-top: 6px; display:flex; flex-direction:column; gap:4px;">
+          <li><strong>Popout Independente:</strong> Clique no botão <kbd>↗</kbd> no topo de qualquer chat para abrir uma janela compacta sem bordas, excelente para monitores secundários.</li>
+          <li><strong>Zoom para Leitura:</strong> Use os botões <kbd>−</kbd> e <kbd>+</kbd> em cada chat para aumentar as fontes e ler com facilidade mesmo de longe.</li>
+          <li><strong>Modo OBS Studio:</strong> Pressione <kbd>F2</kbd> ou clique no botão OBS no topo para ativar fundo transparente e usar direto como Fonte de Navegador (Browser Source).</li>
+          <li><strong>Renomear Chat:</strong> Dê duplo-clique no título de qualquer chat e digite direto ali. <kbd>Enter</kbd> salva, <kbd>Esc</kbd> cancela.</li>
+          <li><strong>Organização:</strong> Arraste qualquer chat pelo cabeçalho para trocar de lugar, use as setas <kbd>←</kbd> <kbd>→</kbd>, ou fixe no início com <kbd>📌</kbd>.</li>
+          <li><strong>Colar e pronto:</strong> Com um link de live copiado, aperte <kbd>Ctrl</kbd> + <kbd>V</kbd> em qualquer lugar da página para adicionar o chat.</li>
+          <li><strong>Cronômetro:</strong> Continua contando mesmo se você fechar ou recarregar a página.</li>
+        </ul>
+
+        <h4 style="color:var(--text-main); margin-top: 10px;">💬 Mandar mensagens pelo MultiChat:</h4>
+        <p>Dá sim! Clique no botão <kbd>⇥ Entrar</kbd> no topo do chat, faça login na Twitch, YouTube, Kick ou Trovo na janelinha que abrir e feche ela. O chat recarrega já logado e você pode digitar e comentar direto dali.</p>
+        <p style="margin-top:6px;">Se continuar pedindo login, o navegador está bloqueando <strong>cookies de terceiros</strong> (o Chrome, o Brave e o Firefox no modo estrito fazem isso). Libere cookies para <code>localhost</code> nas configurações do site (ícone ao lado do endereço), ou use o <kbd>↗ Popout</kbd>: na janela de popout o login sempre funciona.</p>
+
+        <h4 style="color:var(--text-main); margin-top: 10px;">⌨️ Atalhos:</h4>
+        <div class="shortcut-grid">
+          <kbd>Ctrl K</kbd><span>Focar a barra de adicionar chat</span>
+          <kbd>Ctrl V</kbd><span>Colar link fora de um campo adiciona o chat</span>
+          <kbd>Alt 1–6</kbd><span>Auto, 1, 2, 3, 4 colunas, Foco</span>
+          <kbd>F2</kbd><span>Liga/desliga o modo OBS</span>
+          <kbd>Esc</kbd><span>Fecha janelas</span>
+        </div>
+
+        <h4 style="color:var(--text-main); margin-top: 10px;">💡 Solução de Problemas com a Twitch:</h4>
+        <p>A Twitch exige que o parâmetro <code>parent</code> corresponda exatamente ao domínio em que o chat está incorporado. Caso você abra o arquivo diretamente pelo Explorer (<code>file://</code>) e veja uma mensagem de erro da Twitch, use o botão de <strong>Popout (↗)</strong> ou execute via servidor local (ex: extensão Live Server do VS Code ou localhost).</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="app.closeAllModals()">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Personalizar Wallpaper de Fundo
+       ========================================================================= -->
+  <div class="modal-overlay" id="modal-wallpaper">
+    <div class="modal" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          Personalizar Wallpaper de Fundo
+        </h3>
+        <button class="control-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Presets -->
+        <div class="form-group">
+          <label class="form-label">Galeria de Wallpapers:</label>
+          <div class="wallpaper-grid">
+            <div class="wallpaper-card" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600');" onclick="app.setWallpaperUrl('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920&auto=format&fit=crop')">
+              <span class="wallpaper-card-label">Cyber City</span>
+            </div>
+            <div class="wallpaper-card" style="background-image: url('https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=600');" onclick="app.setWallpaperUrl('https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1920&auto=format&fit=crop')">
+              <span class="wallpaper-card-label">Anime Chill</span>
+            </div>
+            <div class="wallpaper-card" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600');" onclick="app.setWallpaperUrl('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop')">
+              <span class="wallpaper-card-label">Cozy Lounge</span>
+            </div>
+            <div class="wallpaper-card" style="background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=600');" onclick="app.setWallpaperUrl('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=1920&auto=format&fit=crop')">
+              <span class="wallpaper-card-label">Synthwave</span>
+            </div>
+            <div class="wallpaper-card" style="background-image: url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=600');" onclick="app.setWallpaperUrl('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1920&auto=format&fit=crop')">
+              <span class="wallpaper-card-label">Deep Space</span>
+            </div>
+            <div class="wallpaper-card" style="background: rgba(0,0,0,0.4); border: 2px dashed var(--border-subtle);" onclick="app.removeWallpaper()">
+              <span class="wallpaper-card-label" style="background:transparent; color:var(--text-dim);">✕ Sem Wallpaper</span>
+            </div>
+          </div>
+        </div>
+
+        <hr style="border:0; border-top: 1px solid var(--border-subtle); margin: 4px 0;">
+
+        <!-- Custom Image URL or Upload -->
+        <div class="form-group">
+          <label class="form-label">Seu Próprio Wallpaper (Link ou Arquivo do PC):</label>
+          <div style="display:flex; gap:8px;">
+            <input id="wallpaper-url-input" class="input-field" placeholder="Cole o link direto da imagem ou GIF (https://...)">
+            <button class="btn btn-primary" onclick="app.setWallpaperUrl(document.getElementById('wallpaper-url-input').value)">Aplicar</button>
+            <label class="btn" style="cursor:pointer;" title="Escolher arquivo do computador">
+              📁 Enviar do PC
+              <input type="file" id="wallpaper-file-input" accept="image/*" style="display:none;">
+            </label>
+          </div>
+        </div>
+
+        <!-- Adjustments (Opacity, Blur, Dim) -->
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; display:flex; flex-direction:column; gap:12px;">
+          <div style="font-size:12px; font-weight:700; color:var(--text-main); text-transform:uppercase;">Ajustes de Visibilidade & Legibilidade:</div>
+          
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <div style="display:flex; justify-content:space-between; font-size:12px;">
+              <span>Opacidade da Imagem:</span>
+              <strong id="wp-opacity-val" style="color:var(--accent-pink);">45%</strong>
+            </div>
+            <input type="range" id="wp-opacity-slider" min="0.1" max="1" step="0.05" oninput="app.updateWallpaperControl('opacity', this.value); document.getElementById('wp-opacity-val').innerText = Math.round(this.value * 100) + '%';">
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <div style="display:flex; justify-content:space-between; font-size:12px;">
+              <span>Desfoque / Blur de Fundo:</span>
+              <strong id="wp-blur-val" style="color:var(--accent-pink);">0px</strong>
+            </div>
+            <input type="range" id="wp-blur-slider" min="0" max="20" step="1" oninput="app.updateWallpaperControl('blur', this.value); document.getElementById('wp-blur-val').innerText = this.value + 'px';">
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <div style="display:flex; justify-content:space-between; font-size:12px;">
+              <span>Escurecimento (Contraste para ler o chat):</span>
+              <strong id="wp-dim-val" style="color:var(--accent-pink);">40%</strong>
+            </div>
+            <input type="range" id="wp-dim-slider" min="0" max="0.9" step="0.05" oninput="app.updateWallpaperControl('dim', this.value); document.getElementById('wp-dim-val').innerText = Math.round(this.value * 100) + '%';">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn btn-danger" onclick="app.removeWallpaper()">Remover Wallpaper</button>
+        <button class="btn btn-primary" onclick="app.closeAllModals()">Concluído</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
